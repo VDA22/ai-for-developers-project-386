@@ -21,6 +21,6 @@
 
 - `.github/workflows/hexlet-check.yml` сгенерирован Хекслетом: не редактировать, не переименовывать, не удалять.
 - `.github/jactionlint.yaml` держит `profile: correctness` из-за неизменяемого `hexlet-check.yml` с unpinned actions; не снижать профиль ради прохождения линтера.
-- Actions в `ci.yml` закреплены по SHA; CI использует `ubuntu-24.04` и Swift `6.2.1`, хотя README описывает локальный Swift `6.4` — не менять раннер или версию без проверки поддержки `setup-swift`.
+- Actions в `ci.yml` закреплены по SHA; CI использует `ubuntu-24.04` и Swift `6.4` через `setup-swift` v3 beta на Swiftly — стабильный `setup-swift` v2.4.0 знает только до `6.2.1` и не соберёт свежие транзитивные зависимости.
 - `server/.swift-format`: 4 пробела, 120 символов; линтер и форматтер работают только с `server/Sources` и `server/Tests`.
 - Коммиты в истории — однострочные `feat: ...` на русском, без body.
