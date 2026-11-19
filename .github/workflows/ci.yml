@@ -25,5 +25,6 @@ jobs:
       - uses: swift-actions/setup-swift@364295d9c23900ce04d4e5cc708387921b4e50f9
         with:
           swift-version: '6.4'
+          skip-verify-signature: true
       - uses: jdx/mise-action@90f833d396d0cc3674b631d2d225e306476c303a
       - run: mise run check
