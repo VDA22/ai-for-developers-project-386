@@ -51,3 +51,17 @@
 - Перед PR запускать `mise run check`; перед коммитом достаточно `mise run check:fast`.
 - Заголовок PR и коммитов — короткая однострочная строка на русском с префиксом `feat:` или `fix:`, без body.
 - В описании PR указывать, что изменилось и какими проверками это подтверждено; при изменении команд или архитектуры обновлять `README.md` и этот файл.
+
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues in `VDA22/ai-for-developers-project-386` via `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default triage label vocabulary (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout (`GLOSSARY.md` + `docs/adr/` at repo root). See `docs/agents/domain.md`.
