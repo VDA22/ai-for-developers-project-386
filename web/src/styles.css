@@ -5,3 +5,10 @@ body {
 #root {
   min-height: 100vh;
 }
+
+.home-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #fff 0%, #87ceeb 100%);
+  display: flex;
+  align-items: center;
+}

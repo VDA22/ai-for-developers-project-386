@@ -4,14 +4,15 @@
 
 - Учебный проект Хекслета: сервис бронирования календаря.
 - Стек: Swift 6.4 + Vapor 4 на бэкенде, TypeScript + Vite + Mantine на фронтенде.
-- Сейчас есть админка типов встреч и форма записи на свободное время; API пока минимальный — health-check.
+- Сейчас есть главная страница с описанием сервиса и кнопкой «Записаться» и заглушка страницы записи `/booking`; API пока минимальный — health-check.
 - `README.md` описывает проект для людей; здесь собраны инструкции и ограничения для агентов.
 
 ## Команды
 
 - Все команды идут через `mise`: bare `npm` не в PATH. Для ad-hoc Node-команд используйте `mise exec -- npm ...`.
 - Установка: `mise install`, затем `mise run install` (`npm --prefix web ci`); после смены версий в `mise.toml` обновляйте `mise.lock`.
-- Разработка: `swift run --package-path server App` и `mise run web`; Vite проксирует `/api` на `http://127.0.0.1:8080`.
+- Разработка: `swift run --package-path server App` и `mise run web` в двух терминалах; Vite проксирует `/api` на `http://127.0.0.1:8080`.
+- Без запущенного бэкенда главная показывает «Бэкенд недоступен», а проксированный `/api/health` отвечает `502`; проверка готовности — `curl http://127.0.0.1:5173/api/health` → `{"status":"ok"}`.
 - Автоисправление: `mise run fix`; хуки: `mise run hooks:install` (pre-commit чинит staged-файлы, pre-push запускает `mise run check`).
 
 ## Тестирование
@@ -24,7 +25,8 @@
 ## Структура
 
 - Два независимых пакета: `web/` (Vite + React + Mantine, TypeScript) и `server/` (Swift package `App`, Vapor executable target `App`).
-- Единственный API-маршрут сейчас `GET /api/health` в `server/Sources/App/routes.swift`; фронт читает его напрямую в `web/src/App.tsx`.
+- Единственный API-маршрут сейчас `GET /api/health` в `server/Sources/App/routes.swift`; фронт читает его напрямую в `web/src/pages/HomePage.tsx`.
+- Навигация фронтенда строится на `react-router-dom`: маршруты `/` и `/booking` описаны в `web/src/App.tsx`, страницы лежат в `web/src/pages/`.
 - `web/vite.config.ts` импортирует `defineConfig` из `vitest/config`: конфиг тестов лежит там же, шаблоны `src/**/*.test.{ts,tsx}`, setup — `web/src/test/setup.ts` (mocks `matchMedia`, `ResizeObserver`).
 - Swift-тесты используют Swift Testing (`@Test`, `#expect`) и `VaporTesting.withApp`; общая сборка приложения для теста — `configureTestApp` в `server/Tests/AppTests/AppTests.swift`.
 
