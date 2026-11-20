@@ -1,4 +1,4 @@
-# Календарь звонков
+# Календарь звонков — Step 2
 
 
 [![hexlet-check](https://github.com/VDA22/ai-for-developers-project-386/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/VDA22/ai-for-developers-project-386/actions)
@@ -10,15 +10,59 @@
 
 ## Стек
 
-- Разное
+- Бэкенд: Swift 6.4, Vapor 4.122.4
+- Фронтенд: TypeScript, Vite, Mantine
 
 ## Установка
-
-<!-- Опишите установку: клонирование, зависимости, переменные окружения -->
 
 ```bash
 git clone https://github.com/VDA22/ai-for-developers-project-386.git
 cd ai-for-developers-project-386
+brew install mise
+mise install
+mise run install
+```
+
+## Разработка
+
+Запустите бэкенд:
+
+```bash
+swift run --package-path server App
+```
+
+В отдельном терминале запустите фронтенд:
+
+```bash
+mise run web
+```
+
+Фронтенд доступен на http://127.0.0.1:5173, API — на http://127.0.0.1:8080/api/health.
+
+## Проверки
+
+Все проверки запускаются одной командой:
+
+```bash
+mise run check
+```
+
+Она же выполняется в GitHub Actions на каждый push. Быстрая часть доступна отдельно:
+
+```bash
+mise run check:fast
+```
+
+Git-хуки:
+
+```bash
+mise run hooks:install
+```
+
+Автоисправление:
+
+```bash
+mise run fix
 ```
 
 ## Использование

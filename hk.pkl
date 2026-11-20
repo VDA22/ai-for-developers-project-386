@@ -1,0 +1,44 @@
+amends "package://github.com/jdx/hk/releases/download/v2.13.0/hk@2.13.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.13.0/hk@2.13.0#/Builtins.pkl"
+
+local fastSteps = new Mapping<String, Step> {
+  ["trailing-whitespace"] = Builtins.trailing_whitespace
+  ["newlines"] = Builtins.newlines
+  ["web-lint"] {
+    glob = List("web/**/*.{ts,tsx}")
+    check = "mise exec -- eslint {{files}}"
+    fix = "mise exec -- eslint --fix {{files}}"
+  }
+  ["web-format"] {
+    glob = List("web/**/*.{ts,tsx,css,json,html,md,yml,yaml}", "web/*.{json,html,md,yml,yaml}")
+    check = "mise exec -- prettier --check {{files}}"
+    fix = "mise exec -- prettier --write {{files}}"
+  }
+  ["actions"] {
+    glob = List(".github/workflows/*.{yml,yaml}")
+    check = "mise exec -- jactionlint {{files}}"
+  }
+}
+
+hooks {
+  ["check"] {
+    steps = fastSteps
+  }
+  ["fix"] {
+    fix = true
+    steps = fastSteps
+  }
+  ["pre-commit"] {
+    fix = true
+    stage = true
+    stash = "git"
+    steps = fastSteps
+  }
+  ["pre-push"] {
+    steps {
+      ["full-check"] {
+        check = "mise run check"
+      }
+    }
+  }
+}
